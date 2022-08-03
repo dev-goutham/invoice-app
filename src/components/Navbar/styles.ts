@@ -28,6 +28,13 @@ const StyledNavbar = styled.nav`
     `}
   }
 
+  .theme-toggle {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+  }
+
   svg {
     font-size: 1.75rem;
     ${breakpoint('mobile', 'tablet')`
