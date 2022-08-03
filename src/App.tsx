@@ -1,8 +1,11 @@
 import React, { PropsWithChildren, useLayoutEffect } from 'react';
-import Navbar from './components/Navbar';
 import GlobalStyles from './utils/GlobalStyles';
 import { useAppDispatch, useAppSelector } from './store';
 import { hyderate } from './store/features/theme';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Invoice from './pages/Invoice';
+import Layout from './components/Layout';
 
 const App: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +21,12 @@ const App: React.FC<PropsWithChildren> = () => {
   return (
     <div>
       <GlobalStyles theme={theme} />
-      <Navbar />
+      <Layout>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/invoice/:id' element={<Invoice />} />
+        </Routes>
+      </Layout>
     </div>
   );
 };
