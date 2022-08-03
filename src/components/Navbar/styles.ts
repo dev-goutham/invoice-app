@@ -33,6 +33,7 @@ const StyledNavbar = styled.nav`
     border: none;
     outline: none;
     color: inherit;
+    cursor: pointer;
   }
 
   svg {
