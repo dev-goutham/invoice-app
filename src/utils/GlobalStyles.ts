@@ -5,6 +5,8 @@ const GlobalStyles = createGlobalStyle<{ theme: 'dark' | 'light' }>`
   ${reset}
 
   :root {
+    --color-brand: #7C5DFA;
+    
     --color-bg-primary: ${({ theme }) =>
       theme === 'dark' ? '#141625' : '#f8f8fb'};
     --color-bg-secondary: ${({ theme }) =>
