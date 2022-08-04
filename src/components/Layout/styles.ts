@@ -5,12 +5,19 @@ const StyledLayout = styled.div`
   position: relative;
   main {
     ${breakpoint('mobile', 'tablet')`
-      padding-top: 90px
+      padding: 32px 24px 56px 24px;
+      margin-top: 80px;
     `};
 
-    ${breakpoint('tablet')`
-      padding-left: 100px
+    ${breakpoint('tablet', 'desktop')`
+      padding: 56px 48px;
+      margin-left: 90px;
     `};
+
+    ${breakpoint('desktop')`
+      padding: 72px 56px;
+      margin-left: 90px;
+    `}
   }
 `;
 

@@ -10,7 +10,8 @@ const StyledNavbar = styled.nav`
   ${breakpoint('mobile', 'tablet')`
     left: 0;
     right: 0;
-    flex-direction: row; 
+    top: 0;
+    flex-direction: row;
   `}
 
   ${breakpoint('tablet')`
