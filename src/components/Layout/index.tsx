@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import Navbar from '../Navbar';
+import Navbar from './Navbar';
 import StyledLayout from './styles';
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {

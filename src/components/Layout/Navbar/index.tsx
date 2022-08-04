@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { MdBrightness5, MdBrightness4 } from 'react-icons/md';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { toggle } from '../../store/features/theme';
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { toggle } from '../../../store/features/theme';
 
 import StyledNavbar from './styles';
 
