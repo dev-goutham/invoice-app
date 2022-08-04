@@ -4,6 +4,11 @@ import breakpoint from 'styled-components-breakpoint';
 const StyledLayout = styled.div`
   position: relative;
   main {
+    * {
+      max-width: 730px;
+      margin: auto;
+    }
+
     ${breakpoint('mobile', 'tablet')`
       padding: 32px 24px 56px 24px;
       margin-top: 80px;
