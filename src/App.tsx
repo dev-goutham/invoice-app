@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Invoice from './pages/Invoice';
 import Layout from './components/Layout';
+import CreateInvoice from './pages/CreateInvoice';
 
 const App: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ const App: React.FC<PropsWithChildren> = () => {
 
     dispatch(hyderate(theme));
   }, []);
+
   return (
     <div>
       <GlobalStyles theme={theme} />
@@ -25,6 +27,7 @@ const App: React.FC<PropsWithChildren> = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/invoice/:id' element={<Invoice />} />
+          <Route path='/create-invoice' element={<CreateInvoice />} />
         </Routes>
       </Layout>
     </div>
