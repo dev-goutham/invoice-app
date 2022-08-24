@@ -5,19 +5,19 @@ const GlobalStyles = createGlobalStyle<{ theme: 'dark' | 'light' }>`
   ${reset}
 
   :root {
-    --color-brand: #7C5DFA;
+    --color-brand: #7c5dfa;
     
     --color-bg-primary: ${({ theme }) =>
       theme === 'dark' ? '#141625' : '#f8f8fb'};
     --color-bg-secondary: ${({ theme }) =>
-      theme === 'dark' ? '#1e2139' : '#DFE3FA'};
+      theme === 'dark' ? '#1e2139' : '#F0F4F6'};
     --color-bg-tertiary: ${({ theme }) =>
       theme === 'dark' ? '#252945' : '#CFD3E9'};
 
     --color-text-primary: ${({ theme }) =>
       theme === 'dark' ? '#fff' : '#141625'};
     --color-text-secondary: ${({ theme }) =>
-      theme === 'dark' ? '#DFE3FA' : '#888eb0'};
+      theme === 'dark' ? '#afb2c4' : '#1f2028'};
   }
 
   body {
