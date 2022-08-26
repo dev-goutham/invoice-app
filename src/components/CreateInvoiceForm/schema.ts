@@ -1,41 +1,41 @@
-import { array, boolean, date, number, object, string } from 'yup';
+import * as yup from 'yup';
 
-const schema = object().shape({
-  createdAt: date().required(),
-  paymentDue: date().required(),
-  description: string().required(),
-  taxApplicable: boolean().required(),
-  clientDetails: object().shape({
-    name: string().required(),
-    email: string().required().email(),
-    street: string().required(),
-    city: string().required(),
-    postCode: string().required(),
-    country: string().required(),
-    taxRegsitrationNumber: string().when('taxApplicable', {
+const schema = yup.object().shape({
+  createdAt: yup.date().required(),
+  paymentDue: yup.date().required(),
+  description: yup.string().required(),
+  taxApplicable: yup.boolean().required(),
+  clientDetails: yup.object().shape({
+    name: yup.string().required(),
+    email: yup.string().required().email(),
+    street: yup.string().required(),
+    city: yup.string().required(),
+    postCode: yup.string().required(),
+    country: yup.string().required(),
+    taxRegsitrationNumber: yup.string().when('taxApplicable', {
       is: true,
-      then: string().required(),
+      then: yup.string().required(),
     }),
   }),
-  senderDetails: object().shape({
-    street: string().required(),
-    city: string().required(),
-    postCode: string().required(),
-    country: string().required(),
-    taxRegsitrationNumber: string().when('taxApplicable', {
+  senderDetails: yup.object().shape({
+    street: yup.string().required(),
+    city: yup.string().required(),
+    postCode: yup.string().required(),
+    country: yup.string().required(),
+    taxRegsitrationNumber: yup.string().when('taxApplicable', {
       is: true,
-      then: string().required(),
+      then: yup.string().required(),
     }),
   }),
-  items: array().of(
-    object().shape({
-      name: string().required(),
-      quantity: number().required(),
-      price: number().required().min(1),
-      total: number().required(),
-      taxRate: number().when('taxApplicable', {
+  items: yup.array().of(
+    yup.object().shape({
+      name: yup.string().required(),
+      quantity: yup.number().required(),
+      price: yup.number().required().min(1),
+      total: yup.number().required(),
+      taxRate: yup.number().when('taxApplicable', {
         is: true,
-        then: number().required(),
+        then: yup.number().required(),
       }),
     }),
   ),
