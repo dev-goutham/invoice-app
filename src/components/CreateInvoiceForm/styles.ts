@@ -1,9 +1,16 @@
 import styled from 'styled-components';
+import { breakpoint } from 'styled-components-breakpoint';
 
 export const StyledCreateInvoiceForm = styled.form`
-  margin-top: 30px;
+  margin: 30px auto 0 auto;
+  ${breakpoint('mobile', 'tablet')`
+    max-width: 450px;
+    width: 450px;
+    `}
+
   max-width: 500px;
   width: 500px;
+
   legend {
     color: var(--color-brand);
     font-weight: bold;
@@ -82,7 +89,7 @@ export const StyledInput = styled.div<{ error: boolean }>`
     color: inherit;
     background-color: var(--color-bg-secondary);
     border-radius: 5px;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: ${({ error }) =>
       error ? `rgb(236, 87, 87)` : `var(--color-bg-secondary)`};

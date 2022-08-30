@@ -5,6 +5,7 @@ import InvoiceStatusBar from '../../components/InvoiceStatusBar';
 import { invoices } from '../../dummy-data';
 import InvoiceCard from '../../components/InvoiceCard';
 import PageWrapper from '../../components/Layout/PageWrapper';
+import DownloadInvoice from '../../components/DownloadInvoice';
 
 const Invoice: React.FC<PropsWithChildren> = () => {
   const params = useParams<{ id: string }>();
@@ -14,6 +15,7 @@ const Invoice: React.FC<PropsWithChildren> = () => {
       <BackButton />
       <InvoiceStatusBar status={invoice.status} />
       <InvoiceCard invoice={invoice} />
+      <DownloadInvoice invoice={invoice} />
     </PageWrapper>
   );
 };

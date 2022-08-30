@@ -48,10 +48,10 @@ export const invoices: Invoice[] = [
     status: 'paid',
     taxApplicable: true,
     clientDetails: {
+      name: 'Client 2',
       city: 'Hyderabad',
       country: 'India',
       email: 'client@email.com',
-      name: 'Client 2',
       postCode: '45007',
       street: 'Imaginary street',
       taxRegistrationNumber: 'xxxxxxxxxxxx',
