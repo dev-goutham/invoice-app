@@ -10,7 +10,6 @@ export const StyledLayout = styled.div`
 
     ${breakpoint('mobile', 'tablet')`
       padding: 32px 24px 56px 24px;
-      margin-top: 80px;
     `};
 
     ${breakpoint('tablet', 'desktop')`
@@ -26,7 +25,6 @@ export const StyledLayout = styled.div`
 `;
 
 export const StyledNavbar = styled.nav`
-  position: fixed;
   background-color: var(--color-bg-secondary);
   display: flex;
   justify-content: space-between;
@@ -36,9 +34,10 @@ export const StyledNavbar = styled.nav`
     right: 0;
     top: 0;
     flex-direction: row;
-  `}
+    `}
 
   ${breakpoint('tablet')`
+    position: fixed;
     top: 0;
     bottom: 0;
     flex-direction: column;
