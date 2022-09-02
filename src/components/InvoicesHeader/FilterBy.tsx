@@ -1,13 +1,13 @@
 import React, { PropsWithChildren, useRef } from 'react';
 import useClickAwayListener from '../../hooks/useClickAwayListener';
+import useToggle from '../../hooks/useToggle';
 import useSelected from './hooks/useSelected';
-import useToggleFilter from './hooks/useToggleFilter';
 import Options from './Options';
 import { StyledFilterBy } from './styles';
 import ToggleFilterBtn from './ToggleFilterBtn';
 
 const FilterBy: React.FC<PropsWithChildren> = () => {
-  const { isFilterOpen, toggle, close } = useToggleFilter();
+  const { state: isFilterOpen, toggle, close } = useToggle();
   const { select, isSelected } = useSelected();
 
   const ref = useRef<HTMLDivElement | null>(null);
