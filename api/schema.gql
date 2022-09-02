@@ -1,0 +1,45 @@
+type Invoice {
+  id: String!
+  invoiceNumber: Int!
+  createdAt: Date!
+  paymentDue: Date!
+  description: String!
+  taxApplicable: Boolean!
+  clientDetails: ClientDetails!
+  senderDetails: SenderDetails!
+  status: Status!
+  items: [InvoiceItem]!
+  total: Int!
+}
+
+enum Status {
+  paid
+  due
+  draft
+}
+
+type ClientDetails {
+  name: String!
+  email: String!
+  street: String!
+  city: String!
+  postCode: String!
+  country: String!
+  taxRegistrationNumber: String
+}
+
+type SenderDetails {
+  street: String!
+  city: String!
+  postCode: String!
+  country: String!
+  taxRegistrationNumber: String
+}
+
+type InvoiceItem @embedded {
+  name: String!
+  quantity: Int!
+  price: Int!
+  total: Int!
+  taxRate: Int
+}

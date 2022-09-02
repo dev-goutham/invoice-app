@@ -69,6 +69,18 @@ export const StyledNavbar = styled.nav`
       margin-bottom: 20px;
     `}
   }
+
+  div {
+    &:last-of-type {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+      ${breakpoint('tablet')`
+        flex-direction: column;
+      `}
+    }
+  }
 `;
 
 export const StyledPageWrapper = styled.div`

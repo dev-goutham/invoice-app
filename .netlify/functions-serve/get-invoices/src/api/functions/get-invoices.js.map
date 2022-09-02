@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "sources": ["../../home/goutham/files/code/invoice-app/api/functions/get-invoices.ts"],
+  "sourceRoot": "/tmp/tmp-2377-mMLv0dR9V97S",
+  "sourcesContent": ["import { Handler } from '@netlify/functions';\n\nexport const handler: Handler = async (event, context) => {\n  return {\n    statusCode: 200,\n    body: JSON.stringify(event),\n  };\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAEO,IAAM,UAAmB,OAAO,OAAO,YAAY;AACxD,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU,KAAK;AAAA,EAC5B;AACF;",
+  "names": []
+}
