@@ -5,7 +5,9 @@ import PageWrapper from '../../components/Layout/PageWrapper';
 
 const Home: React.FC<PropsWithChildren> = () => {
   React.useEffect(() => {
-    fetch('http://localhost:9999/.netlify/functions/get-invoice')
+    fetch(
+      'https://sunny-cascaron-bf4bf5.netlify.app/.netlify/functions/get-invoice',
+    )
       .then((res) => {
         console.log(res);
       })
