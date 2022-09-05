@@ -1,5 +1,10 @@
-import React from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import {
+  UseFormGetValues,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 import { MdDelete } from 'react-icons/md';
 import { Invoice } from '../../typings/Invoice';
 import Input from './Input';
@@ -11,7 +16,26 @@ const InvoiceItem: React.FC<{
   register: UseFormRegister<Invoice>;
   remove: (index: number) => void;
   taxApplicable?: boolean;
-}> = ({ index, register, remove, taxApplicable }) => {
+  watch: UseFormWatch<Invoice>;
+  setValue: UseFormSetValue<Invoice>;
+}> = ({ index, register, remove, taxApplicable, watch, setValue }) => {
+  const [totalValue, setTotalValue] = useState(0);
+
+  const itemsWatch = watch('items');
+
+  useEffect(() => {
+    let total = itemsWatch[index]['price'] * itemsWatch[index]['quantity'];
+    if (taxApplicable) {
+      total = total - (total * itemsWatch[index]['taxRate']!) / 100;
+    }
+    setTotalValue(total);
+  }, [
+    itemsWatch[index]['price'],
+    itemsWatch[index]['quantity'],
+    itemsWatch[index]['taxRate'],
+    taxApplicable,
+  ]);
+
   return (
     <StyledInvoiceItem>
       <Input
@@ -40,6 +64,7 @@ const InvoiceItem: React.FC<{
         id='total'
         labelText='Total'
         register={register(`items.${index}.total`)}
+        value={totalValue}
       />
       <button onClick={() => remove(index)}>
         <MdDelete />

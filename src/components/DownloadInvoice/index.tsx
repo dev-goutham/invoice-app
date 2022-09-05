@@ -35,7 +35,21 @@ const downloadFile = (invoice: Invoice) => {
     footer['total'] = invoice.total;
   }
 
-  xlsx.utils.sheet_add_json(sheet, [...invoice.items, footer], {
+  const sanitizeItems = invoice.items.map((item) => {
+    const obj: { [key: string]: any } = {
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+    };
+
+    if (invoice.taxApplicable) {
+      obj['taxRate'] = item.taxRate;
+    }
+    obj['total'] = item.total;
+    return obj;
+  });
+
+  xlsx.utils.sheet_add_json(sheet, [...sanitizeItems, footer], {
     origin: 'A10',
   });
 

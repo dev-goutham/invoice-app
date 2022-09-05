@@ -1,9 +1,13 @@
-import React, { PropsWithChildren } from 'react';
-import { invoices } from '../../dummy-data';
+import React from 'react';
+import { Invoice } from '../../typings/Invoice';
 import InvoiceItem from './InvoiceItem';
 import StyledInvoicesList from './styles';
 
-const InvoicesList: React.FC<PropsWithChildren> = () => {
+interface Props {
+  invoices: Invoice[];
+}
+
+const InvoicesList: React.FC<Props> = ({ invoices }) => {
   return (
     <StyledInvoicesList>
       {invoices.map((i) => (

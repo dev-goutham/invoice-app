@@ -26,11 +26,11 @@ const InvoiceDetails: React.FC<Props> = ({
       <div className='dates'>
         <div>
           <p>Invoice Date</p>
-          <p className='date'>{createdAt.toDateString().slice(4)}</p>
+          <p className='date'>{new Date(createdAt).toDateString().slice(4)}</p>
         </div>
         <div>
           <p>Payment Date</p>
-          <p className='date'>{paymentDue.toDateString().slice(4)}</p>
+          <p className='date'>{new Date(paymentDue).toDateString().slice(4)}</p>
         </div>
       </div>
       <div className='client-details'>

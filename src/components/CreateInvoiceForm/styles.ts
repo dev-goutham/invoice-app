@@ -8,8 +8,8 @@ export const StyledCreateInvoiceForm = styled.form`
     width: 450px;
     `}
 
-  max-width: 500px;
-  width: 500px;
+  max-width: 600px;
+  width: 600px;
 
   legend {
     color: var(--color-brand);
@@ -24,22 +24,27 @@ export const StyledCreateInvoiceForm = styled.form`
     gap: 20px;
   }
 
-  .tax-applicable {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 7.5px;
-    align-items: baseline;
-    color: inherit;
-    label {
-      color: var(--color-text-secondary);
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-    input[type='checkbox'] {
-      display: inline-block;
-      height: 18px;
-      width: 18px;
-      accent-color: var(--color-brand);
+  .info {
+    display: felx;
+    align-items: center;
+    justify-content: space-between;
+    .tax-applicable {
+      /* margin-bottom: 20px; */
+      display: flex;
+      gap: 7.5px;
+      align-items: baseline;
+      color: inherit;
+      label {
+        color: var(--color-text-secondary);
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+      input[type='checkbox'] {
+        display: inline-block;
+        height: 18px;
+        width: 18px;
+        accent-color: var(--color-brand);
+      }
     }
   }
 `;
@@ -82,7 +87,7 @@ export const StyledInput = styled.div<{ error: boolean }>`
   }
   input {
     display: block;
-    max-width: 500px;
+    max-width: 600px;
     width: calc(100% - 42px);
     margin-bottom: 20px;
     padding: 16px 20px;
@@ -142,6 +147,7 @@ export const StyledInvoiceItem = styled.div`
     width: 140px;
     &:first-of-type {
       width: 100%;
+      max-width: 220px;
     }
   }
   /* display: grid;

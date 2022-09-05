@@ -9322,13 +9322,18 @@ var verify_jwt_default = verifyJwt;
 
 // api/functions/protected.ts
 var handler = verify_jwt_default(async (event, context) => {
-  const { claims } = context.identityContext;
+  const {
+    claims: { sub }
+  } = context.identityContext;
+  const id = sub.split("|")[1];
   return {
-    status: 200,
+    statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+      "Access-Control-Allow-Methods": "GET"
     },
-    body: JSON.stringify(claims)
+    body: JSON.stringify({ id })
   };
 });
 module.exports = __toCommonJS(protected_exports);

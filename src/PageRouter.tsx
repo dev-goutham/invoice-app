@@ -5,7 +5,6 @@ import Authenticate from './pages/Authenticate';
 import CreateInvoice from './pages/CreateInvoice';
 import Home from './pages/Home';
 import Invoice from './pages/Invoice';
-import User from './pages/User';
 import NotFound from './pages/_404';
 
 const PageRouter: React.FC<PropsWithChildren> = () => {
@@ -16,14 +15,6 @@ const PageRouter: React.FC<PropsWithChildren> = () => {
         element={
           <Layout>
             <Home />
-          </Layout>
-        }
-      />
-      <Route
-        path='/user/:id'
-        element={
-          <Layout>
-            <User />
           </Layout>
         }
       />

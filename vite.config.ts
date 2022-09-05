@@ -62,4 +62,15 @@ export default defineConfig({
       plugins: [rollupNodePolyFill()],
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9999/.netlify/functions',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });

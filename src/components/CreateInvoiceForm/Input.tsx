@@ -2,13 +2,16 @@ import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { StyledInput } from './styles';
 
-interface Props {
+type Props = React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+> & {
   id: string;
   labelText: string;
   register: UseFormRegisterReturn<string>;
   error?: boolean;
   placeholder?: string;
-}
+};
 
 const Input: React.FC<Props> = ({
   register,
@@ -16,6 +19,7 @@ const Input: React.FC<Props> = ({
   labelText,
   placeholder,
   error = false,
+  ...props
 }) => {
   return (
     <StyledInput error={error}>
@@ -25,6 +29,7 @@ const Input: React.FC<Props> = ({
         id={id}
         {...register}
         placeholder={placeholder || ''}
+        {...props}
       />
     </StyledInput>
   );

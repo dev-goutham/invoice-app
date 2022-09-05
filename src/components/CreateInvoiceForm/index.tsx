@@ -19,10 +19,31 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
     removeItem,
     fields,
     isTaxApplicable,
+    watch,
+    setValue,
   } = useCreateInvoiceForm();
 
   return (
     <StyledCreateInvoiceForm onSubmit={handleSubmit(onSubmit)}>
+      <div className='info'>
+        <div>
+          <Input
+            id='invoice-number'
+            labelText='Invoice Number'
+            register={register('invoiceNumber')}
+            error={Boolean(errors.invoiceNumber)}
+            placeholder='1'
+          />
+        </div>
+        <div className='tax-applicable'>
+          <input
+            type='checkbox'
+            id='tax-applicable'
+            {...register('taxApplicable')}
+          />
+          <label htmlFor='tax-applicable'>Tax Applicable</label>
+        </div>
+      </div>
       <div>
         <legend>Bill From</legend>
       </div>
@@ -125,14 +146,7 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
         error={Boolean(errors.description)}
         placeholder='Website performance optimization'
       />
-      <div className='tax-applicable'>
-        <input
-          type='checkbox'
-          id='tax-applicable'
-          {...register('taxApplicable')}
-        />
-        <label htmlFor='tax-applicable'>Tax Applicable</label>
-      </div>
+
       <legend>Item List</legend>
       <AddItemButton addItem={addItem} />
       {fields.map(({ id }, index) => (
@@ -142,6 +156,8 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
           register={register}
           remove={removeItem}
           taxApplicable={isTaxApplicable}
+          watch={watch}
+          setValue={setValue}
         />
       ))}
       <ActionButtons />
