@@ -65,7 +65,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:9999/.netlify/functions',
+        target: 'https://sunny-cascaron-bf4bf5.netlify.app',
         changeOrigin: true,
         secure: false,
         ws: true,

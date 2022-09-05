@@ -5,7 +5,7 @@ import { useAppDispatch } from '../store';
 import { hydrate } from '../store/features/auth';
 
 const useAuth = () => {
-  const { isAuthenticated, isLoading, user, getAccessTokenWithPopup } =
+  const { isAuthenticated, isLoading, user, getAccessTokenSilently } =
     useAuth0();
 
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const useAuth = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAccessTokenWithPopup({
+      getAccessTokenSilently({
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
       })
         .then((res) => {

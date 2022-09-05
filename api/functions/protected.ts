@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions';
-import verifyJwt from '../verify-jwt';
+import verifyJwt from '../lib/verify-jwt';
 
 export const handler: Handler = verifyJwt(async (event, context) => {
   const {
