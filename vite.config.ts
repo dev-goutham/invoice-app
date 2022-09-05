@@ -62,15 +62,15 @@ export default defineConfig({
       plugins: [rollupNodePolyFill()],
     },
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://sunny-cascaron-bf4bf5.netlify.app',
-        changeOrigin: true,
-        secure: false,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'https://sunny-cascaron-bf4bf5.netlify.app',
+  //       changeOrigin: true,
+  //       secure: false,
+  //       ws: true,
+  //       rewrite: (path) => path.replace(/^\/api/, ''),
+  //     },
+  //   },
+  // },
 });
