@@ -8,6 +8,7 @@ export const invoices: Invoice[] = [
     paymentDue: new Date(),
     description: 'Web dev',
     status: 'due',
+    userId: '',
     taxApplicable: false,
     clientDetails: {
       city: 'Hyderabad',
@@ -45,6 +46,7 @@ export const invoices: Invoice[] = [
     createdAt: new Date(),
     paymentDue: new Date(),
     description: 'Web dev',
+    userId: '',
     status: 'paid',
     taxApplicable: true,
     clientDetails: {
