@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { Invoice } from '../../typings/Invoice';
 
 const invoiceApi = createApi({
   reducerPath: 'api',
@@ -37,6 +38,18 @@ const invoiceApi = createApi({
         },
       }),
     }),
+    updateInvoice: builder.mutation({
+      query: (args: { token: string; invoice: Invoice; id: string }) => ({
+        url: `/update-invoice?id=${args.id}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${args.token}`,
+        },
+        body: {
+          invoice: args.invoice,
+        },
+      }),
+    }),
   }),
 });
 
@@ -46,6 +59,7 @@ export const {
   useCreateInvoiceMutation,
   useGetInvoiceQuery,
   useLazyGetInvoiceQuery,
+  useUpdateInvoiceMutation,
 } = invoiceApi;
 
 export default invoiceApi;

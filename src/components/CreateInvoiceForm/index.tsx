@@ -1,17 +1,22 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { StyledCreateInvoiceForm } from './styles';
 import Input from './Input';
 import InvoiceItem from './InvoiceItem';
 import DatePicker from './DatePicker';
 import AddItemButton from './AddItemButton';
-import useCreateInvoiceForm from './useCreateInvoiceForm';
+import useCreateInvoiceForm from './hooks/useCreateInvoiceForm';
 import ActionButtons from './ActionButtons';
+import { DefaultValues } from 'react-hook-form';
+import { Invoice } from '../../typings/Invoice';
+import useHandleSubmit from './hooks/useHandleSubmit';
 
-const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
+const CreateInvoiceForm: React.FC<{
+  initialValues?: DefaultValues<Invoice>;
+  mode?: 'create' | 'update';
+}> = ({ initialValues, mode = 'create' }) => {
   const {
     handleSubmit,
-    onSubmit,
     register,
     control,
     formState: { errors },
@@ -21,7 +26,9 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
     isTaxApplicable,
     watch,
     setValue,
-  } = useCreateInvoiceForm();
+  } = useCreateInvoiceForm(initialValues);
+
+  const onSubmit = useHandleSubmit(mode);
 
   return (
     <StyledCreateInvoiceForm onSubmit={handleSubmit(onSubmit)}>
@@ -35,7 +42,7 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
             placeholder='1'
           />
         </div>
-        <div className='tax-applicable'>
+        <div className='checkbox'>
           <input
             type='checkbox'
             id='tax-applicable'
@@ -43,6 +50,15 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
           />
           <label htmlFor='tax-applicable'>Tax Applicable</label>
         </div>
+        {mode === 'update' && (
+          <div className='select'>
+            <label htmlFor='status'>Status</label>
+            <select id='status' {...register('status')}>
+              <option value={'paid'}>Paid</option>
+              <option value={'due'}>Due</option>
+            </select>
+          </div>
+        )}
       </div>
       <div>
         <legend>Bill From</legend>
@@ -77,6 +93,17 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
           placeholder='India'
         />
       </div>
+      {isTaxApplicable && (
+        <div>
+          <Input
+            id='sender-taxnumber'
+            labelText='GSTIN'
+            register={register('senderDetails.taxRegistrationNumber')}
+            placeholder='AGT4PXNMO356'
+            error={Boolean(errors.senderDetails?.taxRegistrationNumber)}
+          />
+        </div>
+      )}
       <div>
         <legend>Bill To</legend>
       </div>
@@ -125,6 +152,17 @@ const CreateInvoiceForm: React.FC<PropsWithChildren> = () => {
           placeholder='India'
         />
       </div>
+      {isTaxApplicable && (
+        <div>
+          <Input
+            id='client-taxnumber'
+            labelText='GSTIN'
+            register={register('clientDetails.taxRegistrationNumber')}
+            placeholder='AGT4PXNMO356'
+            error={Boolean(errors.clientDetails?.taxRegistrationNumber)}
+          />
+        </div>
+      )}
       <div className='stack'>
         <DatePicker
           control={control}

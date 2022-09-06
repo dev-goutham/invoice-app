@@ -5,6 +5,7 @@ export interface Invoice {
   paymentDue: Date;
   description: string;
   taxApplicable: boolean;
+  userId: string;
   clientDetails: Details;
   senderDetails: Omit<Details, 'name' | 'email'>;
   status: 'paid' | 'due' | 'draft';

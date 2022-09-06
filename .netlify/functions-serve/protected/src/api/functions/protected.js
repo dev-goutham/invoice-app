@@ -9305,7 +9305,7 @@ __export(protected_exports, {
   handler: () => handler
 });
 
-// api/verify-jwt.ts
+// api/lib/verify-jwt.ts
 var import_netlify = __toESM(require_dist2(), 1);
 var issuer = process.env.VITE_AUTH0_DOMAIN;
 var audience = process.env.AUTH0_AUDIENCE;

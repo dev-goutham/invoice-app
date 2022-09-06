@@ -28,7 +28,7 @@ export const StyledCreateInvoiceForm = styled.form`
     display: felx;
     align-items: center;
     justify-content: space-between;
-    .tax-applicable {
+    .checkbox {
       /* margin-bottom: 20px; */
       display: flex;
       gap: 7.5px;
@@ -43,6 +43,28 @@ export const StyledCreateInvoiceForm = styled.form`
         display: inline-block;
         height: 18px;
         width: 18px;
+        accent-color: var(--color-brand);
+      }
+    }
+
+    .select {
+      display: flex;
+      gap: 7.5px;
+      align-items: baseline;
+      color: inherit;
+      label {
+        color: var(--color-text-secondary);
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+      select {
+        display: inline-block;
+        /* height: 18px;
+        width: 18px; */
+        padding: 5px;
+        background-color: var(--color-brand);
+        color: inherit;
+        border-radius: 8px;
         accent-color: var(--color-brand);
       }
     }
