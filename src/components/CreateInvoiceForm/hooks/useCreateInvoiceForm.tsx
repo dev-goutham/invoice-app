@@ -9,9 +9,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Invoice, InvoiceItem } from '../../../typings/Invoice';
 import schema from './../schema';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector } from '../../../store';
-import { useCreateInvoiceMutation } from '../../../store/api';
-import { useNavigate } from 'react-router-dom';
 
 type ReturnObj = UseFormReturn<Invoice, unknown> & {
   addItem: () => void;
@@ -27,17 +24,12 @@ const defaultValues: DefaultValues<Invoice> = {
 };
 
 const useCreateInvoiceForm = (initialValues = defaultValues): ReturnObj => {
-  const token = useAppSelector((state) => state.auth.accessToken);
-
-  const [createInvoice] = useCreateInvoiceMutation();
   const methods = useForm<Invoice>({
     resolver: yupResolver(schema),
     reValidateMode: 'onBlur',
     mode: 'onTouched',
     defaultValues: initialValues,
   });
-
-  const navigate = useNavigate();
 
   const [isTaxApplicable, setIsTaxApplicable] = useState(false);
 

@@ -1,5 +1,8 @@
 import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import useToggle from '../../hooks/useToggle';
+import { useAppSelector } from '../../store';
+import { useDeleteInvoiceMutation } from '../../store/api';
 import { Invoice } from '../../typings/Invoice';
 import EditInvoiceModal from '../EditInvoiceModal';
 import StatusBadge from '../StatusBadge';
@@ -11,6 +14,18 @@ interface Props {
 
 const InvoiceStatusBar: React.FC<Props> = ({ invoice }) => {
   const { state: isModalOpen, open, close } = useToggle();
+  const token = useAppSelector((state) => state.auth.accessToken);
+  const params = useParams<{ id: string }>();
+  const [deleteInvoice] = useDeleteInvoiceMutation();
+  const navigate = useNavigate();
+
+  const del = async () => {
+    await deleteInvoice({
+      id: params.id!,
+      token: token!,
+    });
+    navigate('/');
+  };
 
   return (
     <StyledInvoiceStatusBar>
@@ -29,7 +44,9 @@ const InvoiceStatusBar: React.FC<Props> = ({ invoice }) => {
             close={close}
           />
         </div>
-        <button className='delete'>Delete</button>
+        <button onClick={del} className='delete'>
+          Delete
+        </button>
       </div>
     </StyledInvoiceStatusBar>
   );

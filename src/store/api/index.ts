@@ -5,6 +5,7 @@ const invoiceApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: '/.netlify/functions',
+    // baseUrl: '/api/',
   }),
   tagTypes: ['Invoices'],
   endpoints: (builder) => ({
@@ -50,6 +51,17 @@ const invoiceApi = createApi({
         },
       }),
     }),
+
+    deleteInvoice: builder.mutation({
+      query: (args: { token: string; id: string }) => ({
+        url: `delete-invoice?id=${args.id}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${args.token}`,
+        },
+      }),
+      invalidatesTags: ['Invoices'],
+    }),
   }),
 });
 
@@ -60,6 +72,7 @@ export const {
   useGetInvoiceQuery,
   useLazyGetInvoiceQuery,
   useUpdateInvoiceMutation,
+  useDeleteInvoiceMutation,
 } = invoiceApi;
 
 export default invoiceApi;
