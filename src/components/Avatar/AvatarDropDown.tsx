@@ -6,7 +6,15 @@ const AvatarDropDown: React.FC<PropsWithChildren> = () => {
   const { logout } = useAuth0();
 
   return (
-    <StyledAvatarDropDown onClick={() => logout()}>Logout</StyledAvatarDropDown>
+    <StyledAvatarDropDown
+      onClick={() =>
+        logout({
+          returnTo: '/',
+        })
+      }
+    >
+      Logout
+    </StyledAvatarDropDown>
   );
 };
 
