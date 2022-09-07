@@ -7,13 +7,13 @@ import DatePicker from './DatePicker';
 import AddItemButton from './AddItemButton';
 import useCreateInvoiceForm from './hooks/useCreateInvoiceForm';
 import ActionButtons from './ActionButtons';
-import { DefaultValues } from 'react-hook-form';
+import { DefaultValues, SubmitHandler } from 'react-hook-form';
 import { Invoice } from '../../typings/Invoice';
 
 const CreateInvoiceForm: React.FC<{
   initialValues?: DefaultValues<Invoice>;
   mode?: 'create' | 'update';
-  onSubmit: (invoice: Invoice, onComplete: () => unknown) => Promise<void>;
+  onSubmit: SubmitHandler<Invoice>;
 }> = ({ initialValues, mode = 'create', onSubmit }) => {
   const {
     register,

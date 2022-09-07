@@ -5,11 +5,12 @@ import {
 } from '../../../store/api';
 import { useAppSelector } from '../../../store';
 import { useParams } from 'react-router-dom';
+import { SubmitHandler } from 'react-hook-form';
 
 const useHandleSubmit = (
   mode: 'create' | 'update' = 'create',
   onComplete: () => unknown,
-) => {
+): SubmitHandler<Invoice> => {
   const [createInvoice] = useCreateInvoiceMutation();
   const [updateInvoice] = useUpdateInvoiceMutation();
   const token = useAppSelector((state) => state.auth.accessToken);
