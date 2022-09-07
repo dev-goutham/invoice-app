@@ -2,6 +2,15 @@ import { Handler } from '@netlify/functions';
 import verifyJwt from '../lib/verify-jwt';
 import connectToDb from '../lib/fauna';
 
+interface IncomingData {
+  data: {
+    ref: {
+      id: string;
+    };
+    data: { [key: string]: unknown };
+  }[];
+}
+
 const {
   client,
   query: { Paginate, Match, Index, Map, Get },
@@ -14,9 +23,15 @@ export const handler: Handler = verifyJwt(async (event, context) => {
 
   const userId = sub.split('|')[1];
 
-  const invoices = await client.query(
+  const { data }: IncomingData = await client.query(
     Map(Paginate(Match(Index('invoices_by_user'), userId)), (ref) => Get(ref)),
   );
+
+  const invoices = data.map((item) => ({
+    id: item.ref.id,
+    ...item.data,
+  }));
+  console.log(invoices);
 
   return {
     statusCode: 200,
@@ -26,6 +41,6 @@ export const handler: Handler = verifyJwt(async (event, context) => {
         'Origin, X-Requested-With, Content-Type, Accept',
       'Access-Control-Allow-Methods': 'GET',
     },
-    body: JSON.stringify({ invoices }),
+    body: JSON.stringify(invoices),
   };
 });

@@ -4,13 +4,15 @@ import {
   useUpdateInvoiceMutation,
 } from '../../../store/api';
 import { useAppSelector } from '../../../store';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const useHandleSubmit = (mode: 'create' | 'update' = 'create') => {
+const useHandleSubmit = (
+  mode: 'create' | 'update' = 'create',
+  onComplete: () => unknown,
+) => {
   const [createInvoice] = useCreateInvoiceMutation();
   const [updateInvoice] = useUpdateInvoiceMutation();
   const token = useAppSelector((state) => state.auth.accessToken);
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
   const onSubmit = async (invoice: Invoice) => {
@@ -39,14 +41,15 @@ const useHandleSubmit = (mode: 'create' | 'update' = 'create') => {
         },
         token: token!,
       });
+      onComplete();
     } else if (mode === 'update') {
       await updateInvoice({
         invoice,
         token: token!,
         id: id!,
       });
+      onComplete();
     }
-    navigate('/');
   };
 
   return onSubmit;

@@ -10,11 +10,11 @@ import { useGetInvoiceQuery } from '../../store/api';
 import Loading from '../../components/Loading';
 
 const Invoice: React.FC<PropsWithChildren> = () => {
-  const params = useParams<{ id: string }>();
-  const token = useAppSelector((state) => state.auth.accessToken);
+  const id = useParams<{ id: string }>().id as string;
+  const token = useAppSelector((state) => state.auth.accessToken) as string;
   const { data, isLoading } = useGetInvoiceQuery({
-    id: params.id!,
-    token: token!,
+    id,
+    token,
   });
 
   return (
@@ -35,9 +35,9 @@ const Invoice: React.FC<PropsWithChildren> = () => {
       )}
       {data && (
         <>
-          <InvoiceStatusBar invoice={data.data} />
-          <InvoiceCard invoice={data.data} />
-          <DownloadInvoice invoice={data.data} />
+          <InvoiceStatusBar invoice={data} />
+          <InvoiceCard invoice={data} />
+          <DownloadInvoice invoice={data} />
         </>
       )}
     </PageWrapper>

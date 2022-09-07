@@ -9,17 +9,23 @@ const invoiceApi = createApi({
   }),
   tagTypes: ['Invoices'],
   endpoints: (builder) => ({
-    getInvoices: builder.query({
-      query: (token: string) => ({
+    getInvoices: builder.query<Invoice[], string>({
+      query: (token) => ({
         url: `/get-invoices`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }),
-      providesTags: ['Invoices'],
+      providesTags: (result) =>
+        result
+          ? result.map((invoice) => ({ type: 'Invoices', id: invoice.id }))
+          : ['Invoices'],
     }),
-    createInvoice: builder.mutation({
-      query: (args: { token: string; invoice: any }) => ({
+    createInvoice: builder.mutation<
+      unknown,
+      { token: string; invoice: Invoice }
+    >({
+      query: (args) => ({
         url: '/create-invoice',
         method: 'POST',
         headers: {
@@ -31,16 +37,21 @@ const invoiceApi = createApi({
       }),
       invalidatesTags: ['Invoices'],
     }),
-    getInvoice: builder.query({
-      query: (args: { token: string; id: string }) => ({
+    getInvoice: builder.query<Invoice, { token: string; id: string }>({
+      query: (args) => ({
         url: `/get-invoice?id=${args.id}`,
         headers: {
           Authorization: `Bearer ${args.token}`,
         },
       }),
+      providesTags: (result) =>
+        result ? [{ type: 'Invoices', id: result.id }] : ['Invoices'],
     }),
-    updateInvoice: builder.mutation({
-      query: (args: { token: string; invoice: Invoice; id: string }) => ({
+    updateInvoice: builder.mutation<
+      Invoice,
+      { token: string; invoice: Invoice; id: string }
+    >({
+      query: (args) => ({
         url: `/update-invoice?id=${args.id}`,
         method: 'PATCH',
         headers: {
@@ -50,6 +61,8 @@ const invoiceApi = createApi({
           invoice: args.invoice,
         },
       }),
+      invalidatesTags: (result) =>
+        result ? [{ type: 'Invoices', id: result.id }] : ['Invoices'],
     }),
 
     deleteInvoice: builder.mutation({

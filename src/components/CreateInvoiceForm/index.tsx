@@ -9,14 +9,13 @@ import useCreateInvoiceForm from './hooks/useCreateInvoiceForm';
 import ActionButtons from './ActionButtons';
 import { DefaultValues } from 'react-hook-form';
 import { Invoice } from '../../typings/Invoice';
-import useHandleSubmit from './hooks/useHandleSubmit';
 
 const CreateInvoiceForm: React.FC<{
   initialValues?: DefaultValues<Invoice>;
   mode?: 'create' | 'update';
-}> = ({ initialValues, mode = 'create' }) => {
+  onSubmit: (invoice: Invoice, onComplete: () => unknown) => Promise<void>;
+}> = ({ initialValues, mode = 'create', onSubmit }) => {
   const {
-    handleSubmit,
     register,
     control,
     formState: { errors },
@@ -26,9 +25,8 @@ const CreateInvoiceForm: React.FC<{
     isTaxApplicable,
     watch,
     setValue,
+    handleSubmit,
   } = useCreateInvoiceForm(initialValues);
-
-  const onSubmit = useHandleSubmit(mode);
 
   return (
     <StyledCreateInvoiceForm onSubmit={handleSubmit(onSubmit)}>

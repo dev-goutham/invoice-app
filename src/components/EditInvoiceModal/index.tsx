@@ -5,6 +5,7 @@ import { StyledEditInvoiceModal } from './styles';
 import Modal from 'react-modal';
 import useClickAwayListener from '../../hooks/useClickAwayListener';
 import { Invoice } from '../../typings/Invoice';
+import useHandleSubmit from '../CreateInvoiceForm/hooks/useHandleSubmit';
 
 interface Props {
   isOpen: boolean;
@@ -17,6 +18,9 @@ Modal.setAppElement('#root');
 const EditInvoiceModal: React.FC<Props> = ({ isOpen, close, invoice }) => {
   const ref = useRef<null | HTMLDivElement>(null);
   useClickAwayListener(ref, close);
+  const handleSubmit = useHandleSubmit('update', () => {
+    close();
+  });
 
   if (!isOpen) return null;
 
@@ -33,6 +37,7 @@ const EditInvoiceModal: React.FC<Props> = ({ isOpen, close, invoice }) => {
             paymentDue: new Date(invoice.paymentDue),
           }}
           mode='update'
+          onSubmit={handleSubmit}
         />
       </div>
     </StyledEditInvoiceModal>
