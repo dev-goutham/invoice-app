@@ -9,7 +9,7 @@ const AvatarDropDown: React.FC<PropsWithChildren> = () => {
     <StyledAvatarDropDown
       onClick={() =>
         logout({
-          returnTo: '/',
+          returnTo: window.location.origin,
         })
       }
     >
