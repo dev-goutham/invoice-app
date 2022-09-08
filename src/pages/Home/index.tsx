@@ -19,7 +19,7 @@ const Home: React.FC<PropsWithChildren> = () => {
   if (!token || isFetching) {
     return (
       <PageWrapper>
-        <InvoicesHeader />
+        <InvoicesHeader numberOfInvoices={data?.length || 0} />
         <div
           style={{
             width: '100%',
@@ -37,7 +37,7 @@ const Home: React.FC<PropsWithChildren> = () => {
 
   return (
     <PageWrapper>
-      <InvoicesHeader />
+      <InvoicesHeader numberOfInvoices={data?.length || 0} />
       {data && <InvoicesList invoices={data} />}
     </PageWrapper>
   );

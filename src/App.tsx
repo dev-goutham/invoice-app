@@ -6,6 +6,7 @@ import LoadingPage from './pages/Loading';
 import useAuth from './hooks/useAuth';
 import { useAppDispatch, useAppSelector } from './store';
 import { hyderate } from './store/features/theme';
+import { Helmet } from 'react-helmet';
 
 const App: React.FC<PropsWithChildren> = () => {
   const isLoading = useAuth();
@@ -25,6 +26,9 @@ const App: React.FC<PropsWithChildren> = () => {
   return (
     <>
       <GlobalStyles theme={theme} />
+      <Helmet>
+        <title>Invoice App</title>
+      </Helmet>
       {isLoading ? <LoadingPage /> : <PageRouter />}
     </>
   );

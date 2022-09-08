@@ -4,6 +4,7 @@ import BackButton from '../../components/BackButton';
 import CreateInvoiceForm from '../../components/CreateInvoiceForm';
 import useHandleSubmit from '../../components/CreateInvoiceForm/hooks/useHandleSubmit';
 import PageWrapper from '../../components/Layout/PageWrapper';
+import SEO from '../../components/SEO';
 
 const CreateInvoice: React.FC<PropsWithChildren> = () => {
   const navigate = useNavigate();
@@ -12,10 +13,13 @@ const CreateInvoice: React.FC<PropsWithChildren> = () => {
   });
 
   return (
-    <PageWrapper>
-      <BackButton />
-      <CreateInvoiceForm onSubmit={handleSubmit} />
-    </PageWrapper>
+    <>
+      <SEO title='Create Invoice' />
+      <PageWrapper>
+        <BackButton />
+        <CreateInvoiceForm onSubmit={handleSubmit} />
+      </PageWrapper>
+    </>
   );
 };
 

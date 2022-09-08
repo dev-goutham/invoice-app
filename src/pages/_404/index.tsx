@@ -1,13 +1,17 @@
 import React, { PropsWithChildren } from 'react';
 import BackButton from '../../components/BackButton';
 import PageWrapper from '../../components/Layout/PageWrapper';
+import SEO from '../../components/SEO';
 
 const NotFound: React.FC<PropsWithChildren> = () => {
   return (
-    <PageWrapper>
-      <BackButton />
-      <h1>Page Not Found</h1>
-    </PageWrapper>
+    <>
+      <SEO title='404' />
+      <PageWrapper>
+        <BackButton />
+        <h1>Page Not Found</h1>
+      </PageWrapper>
+    </>
   );
 };
 

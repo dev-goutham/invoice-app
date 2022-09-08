@@ -8,6 +8,7 @@ import DownloadInvoice from '../../components/DownloadInvoice';
 import { useAppSelector } from '../../store';
 import { useGetInvoiceQuery } from '../../store/api';
 import Loading from '../../components/Loading';
+import SEO from '../../components/SEO';
 
 const Invoice: React.FC<PropsWithChildren> = () => {
   const id = useParams<{ id: string }>().id as string;
@@ -18,29 +19,32 @@ const Invoice: React.FC<PropsWithChildren> = () => {
   });
 
   return (
-    <PageWrapper>
-      <BackButton />
-      {isLoading && (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Loading />
-        </div>
-      )}
-      {data && (
-        <>
-          <InvoiceStatusBar invoice={data} />
-          <InvoiceCard invoice={data} />
-          <DownloadInvoice invoice={data} />
-        </>
-      )}
-    </PageWrapper>
+    <>
+      <SEO title={`Invoice ${data?.invoiceNumber}`} />
+      <PageWrapper>
+        <BackButton />
+        {isLoading && (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Loading />
+          </div>
+        )}
+        {data && (
+          <>
+            <InvoiceStatusBar invoice={data} />
+            <InvoiceCard invoice={data} />
+            <DownloadInvoice invoice={data} />
+          </>
+        )}
+      </PageWrapper>
+    </>
   );
 };
 

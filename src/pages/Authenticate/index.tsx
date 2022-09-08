@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StyledAuthenticate from './styles';
+import SEO from '../../components/SEO';
 
 const Authenticate: React.FC<PropsWithChildren> = () => {
   const { loginWithPopup, isAuthenticated, isLoading } = useAuth0();
@@ -15,12 +16,15 @@ const Authenticate: React.FC<PropsWithChildren> = () => {
   if (isLoading) return null;
 
   return (
-    <StyledAuthenticate>
-      <div className='card'>
-        <button onClick={() => loginWithPopup()}>Login</button>
-        <button>Continue as Guest</button>
-      </div>
-    </StyledAuthenticate>
+    <>
+      <SEO title='authenticate' />
+      <StyledAuthenticate>
+        <div className='card'>
+          <button onClick={() => loginWithPopup()}>Login</button>
+          <button>Continue as Guest</button>
+        </div>
+      </StyledAuthenticate>
+    </>
   );
 };
 
