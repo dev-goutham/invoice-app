@@ -8,25 +8,42 @@ const StyledAuthenticate = styled.div`
   align-items: center;
   .card {
     margin: auto;
-    width: 230px;
+    width: 300px;
     background-color: var(--color-bg-secondary);
     border-radius: 8px;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.35);
 
-    button {
-      display: block;
+    .google-login {
       margin: 25px auto;
-      width: 70%;
-      padding: 16px 0;
-      border-radius: 8px;
-      border: none;
-      font-weight: bold;
-      background-color: var(--color-bg-primary);
+      background-color: #4285f4;
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border: none;
+      gap: 10px;
+      width: 70%;
+      border-radius: 3px;
       cursor: pointer;
-      box-shadow: 10px 7px 15px 0px rgba(0, 0, 0, 0.35);
-      &:first-of-type {
-        background-color: var(--color-brand);
+      padding: 0;
+      box-shadow: 5px 5px 20px 0px rgba(66, 133, 244, 0.4);
+      .image-container {
+        background-color: white;
+        height: 32px;
+        width: 40px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 8px;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      span {
+        font-weight: bold;
+      }
+      & > * {
+        display: inline-block;
       }
     }
   }

@@ -20,8 +20,15 @@ const Authenticate: React.FC<PropsWithChildren> = () => {
       <SEO title='authenticate' />
       <StyledAuthenticate>
         <div className='card'>
-          <button onClick={() => loginWithPopup()}>Login</button>
-          <button>Continue as Guest</button>
+          <button onClick={() => loginWithPopup()} className='google-login'>
+            <div className='image-container'>
+              <img
+                src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'
+                alt='google login'
+              />
+            </div>
+            <span>Login With Google</span>
+          </button>
         </div>
       </StyledAuthenticate>
     </>
