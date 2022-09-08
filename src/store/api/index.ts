@@ -19,10 +19,7 @@ const invoiceApi = createApi({
           Authorization: `Bearer ${token}`,
         },
       }),
-      providesTags: (result) =>
-        result
-          ? result.map((invoice) => ({ type: 'Invoices', id: invoice.id }))
-          : ['Invoices'],
+      providesTags: (_, __, args) => [{ type: 'Invoices', id: args.filterBy }],
     }),
     createInvoice: builder.mutation<
       unknown,
