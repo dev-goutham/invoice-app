@@ -9,9 +9,12 @@ const invoiceApi = createApi({
   }),
   tagTypes: ['Invoices'],
   endpoints: (builder) => ({
-    getInvoices: builder.query<Invoice[], string>({
-      query: (token) => ({
-        url: `/get-invoices`,
+    getInvoices: builder.query<
+      Invoice[],
+      { token: string; filterBy?: 'all' | 'due' | 'paid' }
+    >({
+      query: ({ token, filterBy = 'all' }) => ({
+        url: `/get-invoices?status=${filterBy}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },

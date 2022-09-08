@@ -1,14 +1,13 @@
 import React from 'react';
-import { Invoice } from '../../typings/Invoice';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { changeFilterBy } from '../../store/features/filterBy';
 
-interface Props {
-  isSelected: (value: Invoice['status']) => boolean;
-  select: (value: Invoice['status']) => void;
-}
+const Options: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { filterBy } = useAppSelector((state) => state.filterBy);
 
-const Options: React.FC<Props> = ({ isSelected, select }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    select(e.target.value as Invoice['status']);
+    dispatch(changeFilterBy(e.target.value as 'all' | 'paid' | 'due'));
   };
 
   return (
@@ -17,7 +16,18 @@ const Options: React.FC<Props> = ({ isSelected, select }) => {
         <input
           type='radio'
           name='options'
-          checked={isSelected('paid')}
+          checked={filterBy === 'all'}
+          id='all'
+          value='all'
+          onChange={handleChange}
+        />
+        <label htmlFor='all'>All</label>
+      </div>
+      <div className='radio-btn'>
+        <input
+          type='radio'
+          name='options'
+          checked={filterBy === 'paid'}
           id='paid'
           value='paid'
           onChange={handleChange}
@@ -28,23 +38,12 @@ const Options: React.FC<Props> = ({ isSelected, select }) => {
         <input
           type='radio'
           name='options'
-          checked={isSelected('due')}
+          checked={filterBy === 'due'}
           id='due'
           value='due'
           onChange={handleChange}
         />
         <label htmlFor='due'>Due</label>
-      </div>
-      <div className='radio-btn'>
-        <input
-          type='radio'
-          name='options'
-          checked={isSelected('draft')}
-          id='draft'
-          value='draft'
-          onChange={handleChange}
-        />
-        <label htmlFor='draft'>Draft</label>
       </div>
     </div>
   );

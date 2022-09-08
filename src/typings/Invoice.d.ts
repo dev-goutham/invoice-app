@@ -8,7 +8,7 @@ export interface Invoice {
   userId: string;
   clientDetails: Details;
   senderDetails: Omit<Details, 'name' | 'email'>;
-  status: 'paid' | 'due' | 'draft';
+  status: 'paid' | 'due';
   items: InvoiceItem[];
   total: number;
 }

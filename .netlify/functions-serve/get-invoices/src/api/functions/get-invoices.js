@@ -15255,11 +15255,18 @@ var handler = verify_jwt_default(async (event, context) => {
     claims: { sub }
   } = context.identityContext;
   const userId = sub.split("|")[1];
-  const { data } = await client.query(Map2(Paginate(Match(Index("invoices_by_user"), userId)), (ref) => Get(ref)));
+  const status = event.rawQuery.split("=")[1];
+  let data;
+  if (status === "paid" || status === "due") {
+    const result = await client.query(Map2(Paginate(Match(Index("invoices_by_user_id_status"), [status, userId])), (ref) => Get(ref)));
+    data = result.data;
+  } else {
+    const result = await client.query(Map2(Paginate(Match(Index("invoices_by_user"), userId)), (ref) => Get(ref)));
+    data = result.data;
+  }
   const invoices = data.map((item) => __spreadValues({
     id: item.ref.id
   }, item.data));
-  console.log(invoices);
   return {
     statusCode: 200,
     headers: {

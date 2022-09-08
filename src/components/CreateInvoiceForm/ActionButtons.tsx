@@ -1,11 +1,20 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StyledActionButtons } from './styles';
 
-const ActionButtons: React.FC<PropsWithChildren> = () => {
+const ActionButtons: React.FC<{ reset: () => void }> = ({ reset }) => {
+  const navigate = useNavigate();
+  const discard = () => {
+    reset();
+    navigate('/');
+  };
+
   return (
     <StyledActionButtons>
       <div className='left'>
-        <button className='discard'>Discard</button>
+        <button onClick={discard} className='discard'>
+          Discard
+        </button>
       </div>
       <div className='right'>
         <button className='draft'>Save as Draft</button>

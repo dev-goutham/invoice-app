@@ -4,11 +4,13 @@ import themeReducer from './features/theme';
 import authReducer from './features/auth';
 import invoiceApi from './api';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import filterByReducer from './features/filterBy';
 
 const store = configureStore({
   reducer: {
     theme: themeReducer,
     auth: authReducer,
+    filterBy: filterByReducer,
     [invoiceApi.reducerPath]: invoiceApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

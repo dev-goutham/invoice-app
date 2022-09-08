@@ -26,6 +26,7 @@ const CreateInvoiceForm: React.FC<{
     watch,
     setValue,
     handleSubmit,
+    reset,
   } = useCreateInvoiceForm(initialValues);
 
   return (
@@ -196,7 +197,7 @@ const CreateInvoiceForm: React.FC<{
           setValue={setValue}
         />
       ))}
-      <ActionButtons />
+      <ActionButtons reset={reset} />
     </StyledCreateInvoiceForm>
   );
 };

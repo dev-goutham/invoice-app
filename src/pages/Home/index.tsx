@@ -8,16 +8,18 @@ import { useLazyGetInvoicesQuery } from '../../store/api';
 
 const Home: React.FC<PropsWithChildren> = () => {
   const token = useAppSelector((state) => state.auth.accessToken);
-  const [getInvoices, { data, isLoading }] = useLazyGetInvoicesQuery();
+  const [getInvoices, { data, isFetching }] = useLazyGetInvoicesQuery();
+  const { filterBy } = useAppSelector((state) => state.filterBy);
   useEffect(() => {
     if (token) {
-      getInvoices(token);
+      getInvoices({ token, filterBy });
     }
-  }, [token]);
+  }, [token, filterBy]);
 
-  if (!token || isLoading) {
+  if (!token || isFetching) {
     return (
       <PageWrapper>
+        <InvoicesHeader />
         <div
           style={{
             width: '100%',
