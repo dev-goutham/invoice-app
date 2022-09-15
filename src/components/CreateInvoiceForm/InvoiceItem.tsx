@@ -26,7 +26,7 @@ const InvoiceItem: React.FC<{
   useEffect(() => {
     let total = itemsWatch[index]['price'] * itemsWatch[index]['quantity'];
     if (taxApplicable) {
-      total = total - (total * itemsWatch[index]['taxRate']!) / 100;
+      total = total + (total * itemsWatch[index]['taxRate']!) / 100;
     }
     setTotalValue(total);
   }, [
