@@ -20,7 +20,7 @@ const useHandleSubmit = (
     const invoiceItems: Invoice['items'] = invoice.items.map((item) => {
       let total = item.price * item.quantity;
       if (item.taxRate) {
-        total = total - (total * item.taxRate) / 100;
+        total = total +( (total * item.taxRate) / 100);
       }
       return {
         ...item,
