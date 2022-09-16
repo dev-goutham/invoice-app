@@ -32,7 +32,7 @@ const useHandleSubmit = (
     invoice.items = invoiceItems;
     let total = 0;
     invoice.items.forEach((item) => {
-      total += item.total;
+      total += item.totalAfterTax;
     });
     if (mode === 'create') {
       await createInvoice({
