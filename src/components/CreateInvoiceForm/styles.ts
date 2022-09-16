@@ -8,8 +8,8 @@ export const StyledCreateInvoiceForm = styled.form`
     width: 450px;
     `}
 
-  max-width: 600px;
-  width: 600px;
+  max-width: 650px;
+  width: 650px;
 
   legend {
     color: var(--color-brand);
@@ -20,31 +20,25 @@ export const StyledCreateInvoiceForm = styled.form`
 
   .stack {
     display: flex;
-    max-width: 602px;
+    max-width: 652px;
     gap: 20px;
   }
 
   .info {
-    display: felx;
-    align-items: center;
-    justify-content: space-between;
-    .checkbox {
-      /* margin-bottom: 20px; */
-      display: flex;
-      gap: 7.5px;
-      align-items: baseline;
-      color: inherit;
-      label {
-        color: var(--color-text-secondary);
-        font-size: 0.9rem;
-        font-weight: bold;
-      }
-      input[type='checkbox'] {
-        display: inline-block;
-        height: 18px;
-        width: 18px;
-        accent-color: var(--color-brand);
-      }
+    display: flex;
+    max-width: 652px;
+    gap: 30px;
+
+    lable + input {
+      width: 100px;
+      font-size: 16px;
+    }
+    input {
+      width: 52px;
+    }
+    .date-picker {
+      flex-grow: 1;
+      width: 160px;
     }
 
     .select {
@@ -68,6 +62,26 @@ export const StyledCreateInvoiceForm = styled.form`
         accent-color: var(--color-brand);
       }
     }
+  }
+`;
+
+export const StyledCheckBox = styled.div`
+  display: flex;
+  gap: 7.5px;
+  align-items: center;
+  color: inherit;
+  margin-bottom: 20px;
+  height: 18px;
+  label {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  input[type='checkbox'] {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    accent-color: var(--color-brand);
   }
 `;
 
@@ -109,10 +123,10 @@ export const StyledInput = styled.div<{ error: boolean }>`
   }
   input {
     display: block;
-    max-width: 600px;
+    max-width: 650px;
     width: calc(100% - 42px);
     margin-bottom: 20px;
-    padding: 16px 20px;
+    padding: 16px 15px;
     color: inherit;
     background-color: var(--color-bg-secondary);
     border-radius: 5px;
@@ -136,6 +150,7 @@ export const StyledInput = styled.div<{ error: boolean }>`
 export const StyledDatePicker = styled.div`
   width: 100%;
   margin-bottom: 20px;
+  flex-grow: 1;
   & > * {
     display: block;
   }
@@ -166,15 +181,26 @@ export const StyledInvoiceItem = styled.div`
   margin: 10px 0;
   display: flex;
   div {
-    width: 140px;
+    /* border: 2px solid gold; */
+    width: 150px;
     &:first-of-type {
       width: 100%;
       max-width: 220px;
     }
   }
-  /* display: grid;
-  grid-template-columns: 1fr 66px 100px 60px 16px; */
-  gap: 10px;
+  gap: 5px;
+  input {
+    width: calc(100% - 32px);
+  }
+  input:read-only {
+    opacity: 0.5;
+    &:hover,
+    &:focus {
+      border-color: var(--color-bg-secondary);
+    }
+    cursor: not-allowed;
+  }
+
   button {
     padding: 0 10px;
     background: none;

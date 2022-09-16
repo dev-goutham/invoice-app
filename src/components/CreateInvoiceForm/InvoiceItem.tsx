@@ -17,23 +17,35 @@ const InvoiceItem: React.FC<{
   remove: (index: number) => void;
   taxApplicable?: boolean;
   watch: UseFormWatch<Invoice>;
-  setValue: UseFormSetValue<Invoice>;
-}> = ({ index, register, remove, taxApplicable, watch, setValue }) => {
+}> = ({ index, register, remove, taxApplicable, watch }) => {
+  const [totalAfterTaxValue, setTotalAfterTaxValue] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
 
   const itemsWatch = watch('items');
 
   useEffect(() => {
-    let total = itemsWatch[index]['price'] * itemsWatch[index]['quantity'];
+    let totalAfterTax =
+      itemsWatch[index]['price'] * itemsWatch[index]['quantity'];
     if (taxApplicable) {
-      total = total + (total * itemsWatch[index]['taxRate']!) / 100;
+      totalAfterTax =
+        totalAfterTax + (totalAfterTax * itemsWatch[index]['taxRate']!) / 100;
     }
-    setTotalValue(total);
+    setTotalAfterTaxValue(totalAfterTax);
   }, [
     itemsWatch[index]['price'],
     itemsWatch[index]['quantity'],
     itemsWatch[index]['taxRate'],
     taxApplicable,
+  ]);
+  useEffect(() => {
+    const totalValue =
+      itemsWatch[index]['price'] * itemsWatch[index]['quantity'];
+
+    setTotalValue(totalValue);
+  }, [
+    itemsWatch[index]['price'],
+    itemsWatch[index]['quantity'],
+    itemsWatch[index]['taxRate'],
   ]);
 
   return (
@@ -53,19 +65,29 @@ const InvoiceItem: React.FC<{
         labelText='Price'
         register={register(`items.${index}.price`)}
       />
-      {taxApplicable && (
-        <Input
-          id='tax-rate'
-          labelText='GST(%)'
-          register={register(`items.${index}.taxRate`)}
-        />
-      )}
       <Input
         id='total'
         labelText='Total'
         register={register(`items.${index}.total`)}
         value={totalValue}
+        readOnly
       />
+      {taxApplicable && (
+        <>
+          <Input
+            id='tax-rate'
+            labelText='GST(%)'
+            register={register(`items.${index}.taxRate`)}
+          />
+          <Input
+            id='total-after-tax'
+            labelText='Total w/tax'
+            register={register(`items.${index}.totalAfterTax`)}
+            value={totalAfterTaxValue}
+            readOnly
+          />
+        </>
+      )}
       <button onClick={() => remove(index)}>
         <MdDelete />
       </button>

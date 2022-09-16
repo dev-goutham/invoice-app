@@ -32,7 +32,9 @@ const InvoiceTable: React.FC<Props> = ({
             <td className='center-align'>{item.quantity}</td>
             <td className='right-align'>{formatCurrency(item.price)}</td>
             {taxApplicable && <td>{item.taxRate + '%'}</td>}
-            <td className='right-align'>{formatCurrency(item.total)}</td>
+            <td className='right-align'>
+              {formatCurrency(item.totalAfterTax)}
+            </td>
           </tr>
         ))}
       </tbody>

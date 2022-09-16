@@ -3,6 +3,7 @@ import * as xlsx from 'xlsx-js-style';
 import { saveAs } from 'file-saver';
 import { Invoice } from '../../typings/Invoice';
 import StyledDownloadInvoice from './styles';
+import formatCurrency from '../../utils/formatCurrency';
 
 interface Props extends PropsWithChildren {
   invoice: Invoice;
@@ -11,83 +12,99 @@ interface Props extends PropsWithChildren {
 const downloadFile = (invoice: Invoice) => {
   const wb = xlsx.utils.book_new();
   const sheet = xlsx.utils.json_to_sheet([
+    ['Invoice No.: ' + invoice.invoiceNumber],
+    ['Invoice date: ' + new Date(invoice.invoiceDate).toDateString()],
     ...Object.values(invoice.senderDetails).map((val) => [val]),
   ]);
 
-  xlsx.utils.sheet_add_json(
-    sheet,
-    [...Object.values(invoice.clientDetails).map((val) => [val])],
-    {
-      origin: invoice.taxApplicable ? 'E1' : 'D1',
-    },
-  );
+  const clientDetails = Object.values(invoice.clientDetails).map((val) => [
+    val,
+  ]);
+
+  if (invoice.poNumber) {
+    clientDetails.splice(1, 0, ['PO. No.: ' + invoice.poNumber]);
+  }
+
+  if (invoice.poDate) {
+    clientDetails.splice(2, 0, [
+      'PO. date: ' + new Date(invoice.poDate).toDateString(),
+    ]);
+  }
+
+  xlsx.utils.sheet_add_json(sheet, [...clientDetails], {
+    origin: invoice.taxApplicable ? 'E1' : 'D1',
+  });
 
   const footer: { [key: string]: any } = {
-    name: '',
-    price: '',
+    Name: '',
+    Price: '',
   };
 
   if (invoice.taxApplicable) {
-    (footer['quantity'] = ''), (footer['taxRate'] = 'Total');
-    footer['total'] = invoice.total;
+    footer['Qty'] = '';
+    footer['Total'] = '';
+    footer['Tax Rate'] = 'Total';
+    footer['Total w/tax'] = formatCurrency(invoice.total);
   } else {
-    footer['quantity'] = 'Total';
-    footer['total'] = invoice.total;
+    footer['Qty'] = 'Total';
+    footer['Total'] = formatCurrency(invoice.total);
   }
 
-  const sanitizeItems = invoice.items.map((item) => {
+  const sanitizedItems = invoice.items.map((item) => {
+    console.log(item);
     const obj: { [key: string]: any } = {
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity,
+      Name: item.name,
+      Price: formatCurrency(item.price),
+      Qty: item.quantity,
+      Total: formatCurrency(item.total),
     };
 
     if (invoice.taxApplicable) {
-      obj['taxRate'] = item.taxRate;
+      obj['Tax Rate'] = item.taxRate + '%';
+      obj['Total w/tax'] = formatCurrency(item.totalAfterTax);
+      return obj;
     }
-    obj['total'] = item.total;
-    return obj;
   });
-
-  xlsx.utils.sheet_add_json(sheet, [...sanitizeItems, footer], {
-    origin: 'A10',
+  console.log(sanitizedItems);
+  xlsx.utils.sheet_add_json(sheet, [...sanitizedItems, footer], {
+    origin: 'A15',
   });
 
   const headerAndFooterStyles = {
     font: {
       bold: true,
       sz: '12',
-      color: { rgb: '#ffffff' },
+      color: { rgb: 'ffffff' },
     },
     fill: {
-      fgColor: { rgb: '#141625' },
+      fgColor: { rgb: '141625' },
     },
   };
 
   const tableStyle = {
     font: {
-      color: { rgb: '#ffffff' },
+      color: { rgb: 'ffffff' },
     },
     fill: {
-      fgColor: { rgb: '#4b4f6a' },
+      fgColor: { rgb: '4b4f6a' },
     },
   };
 
   const cols = ['A', 'B', 'C', 'D'];
 
-  if (invoice.taxApplicable) cols.push('E');
+  if (invoice.taxApplicable) cols.push('E', 'F');
 
   cols.forEach((cell) => {
-    const headerCell = cell + 10;
+    const headerCell = cell + 15;
     sheet[headerCell].s = headerAndFooterStyles;
-    const footerCell = cell + (10 + invoice.items.length + 1);
+    const footerCell = cell + (15 + invoice.items.length + 1);
     if (sheet[footerCell]) {
       sheet[footerCell].s = headerAndFooterStyles;
     }
   });
 
   for (let i = 0; i < cols.length; i++) {
-    for (let j = 11; j <= invoice.items.length + 10; j++) {
+    for (let j = 16; j <= invoice.items.length + 15; j++) {
       const headerCell = cols[i] + j;
       sheet[headerCell].s = tableStyle;
     }

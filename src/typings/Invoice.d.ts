@@ -1,8 +1,9 @@
 export interface Invoice {
   id: string;
   invoiceNumber: number;
-  createdAt: Date;
-  paymentDue: Date;
+  invoiceDate: Date;
+  poNumber?: string;
+  poDate?: Date;
   description: string;
   taxApplicable: boolean;
   userId: string;
@@ -29,4 +30,5 @@ interface InvoiceItem {
   price: number;
   total: number;
   taxRate?: number;
+  totalAfterTax: number;
 }

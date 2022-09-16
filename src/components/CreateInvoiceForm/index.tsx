@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { StyledCreateInvoiceForm } from './styles';
+import { StyledCheckBox, StyledCreateInvoiceForm } from './styles';
 import Input from './Input';
 import InvoiceItem from './InvoiceItem';
 import DatePicker from './DatePicker';
@@ -24,15 +24,26 @@ const CreateInvoiceForm: React.FC<{
     fields,
     isTaxApplicable,
     watch,
-    setValue,
     handleSubmit,
     reset,
   } = useCreateInvoiceForm(initialValues);
 
+  React.useEffect(() => {
+    console.log(errors);
+  }, [errors]);
+
   return (
     <StyledCreateInvoiceForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledCheckBox>
+        <input
+          type='checkbox'
+          id='tax-applicable'
+          {...register('taxApplicable')}
+        />
+        <label htmlFor='tax-applicable'>Tax Applicable</label>
+      </StyledCheckBox>
       <div className='info'>
-        <div>
+        <div className='invoice-number'>
           <Input
             id='invoice-number'
             labelText='Invoice Number'
@@ -41,14 +52,15 @@ const CreateInvoiceForm: React.FC<{
             placeholder='1'
           />
         </div>
-        <div className='checkbox'>
-          <input
-            type='checkbox'
-            id='tax-applicable'
-            {...register('taxApplicable')}
+        <div>
+          <DatePicker
+            control={control}
+            name='invoiceDate'
+            id='invoice-date'
+            labelText='Invoice Date'
           />
-          <label htmlFor='tax-applicable'>Tax Applicable</label>
         </div>
+
         {mode === 'update' && (
           <div className='select'>
             <label htmlFor='status'>Status</label>
@@ -58,6 +70,25 @@ const CreateInvoiceForm: React.FC<{
             </select>
           </div>
         )}
+      </div>
+      <div className='info'>
+        <div className='po-number'>
+          <Input
+            id='po-number'
+            labelText='PO. Number'
+            register={register('poNumber')}
+            error={Boolean(errors.poNumber)}
+            placeholder='1'
+          />
+        </div>
+        <div>
+          <DatePicker
+            control={control}
+            name='poDate'
+            id='po-date'
+            labelText='PO. Date'
+          />
+        </div>
       </div>
       <div>
         <legend>Bill From</legend>
@@ -162,7 +193,7 @@ const CreateInvoiceForm: React.FC<{
           />
         </div>
       )}
-      <div className='stack'>
+      {/* <div className='stack'>
         <DatePicker
           control={control}
           name='createdAt'
@@ -175,7 +206,7 @@ const CreateInvoiceForm: React.FC<{
           id='payment-due'
           labelText='Payment Due'
         />
-      </div>
+      </div> */}
       <Input
         id='description'
         labelText='Description'
@@ -194,7 +225,6 @@ const CreateInvoiceForm: React.FC<{
           remove={removeItem}
           taxApplicable={isTaxApplicable}
           watch={watch}
-          setValue={setValue}
         />
       ))}
       <ActionButtons reset={reset} />

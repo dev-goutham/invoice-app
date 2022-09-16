@@ -7,7 +7,7 @@ import { StyledDatePicker } from './styles';
 
 interface Props {
   control: Control<Invoice, unknown>;
-  name: 'createdAt' | 'paymentDue';
+  name: 'invoiceDate' | 'poDate';
   id: string;
   labelText: string;
 }

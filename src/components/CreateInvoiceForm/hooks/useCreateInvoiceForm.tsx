@@ -18,8 +18,8 @@ type ReturnObj = UseFormReturn<Invoice, unknown> & {
 };
 
 const defaultValues: DefaultValues<Invoice> = {
-  createdAt: new Date(),
-  paymentDue: new Date(),
+  invoiceDate: new Date(),
+  poDate: new Date(),
   taxApplicable: false,
 };
 
@@ -51,6 +51,7 @@ const useCreateInvoiceForm = (initialValues = defaultValues): ReturnObj => {
       quantity: 0,
       total: 0,
       taxRate: 0,
+      totalAfterTax: 0,
     };
     append(initValues);
   }, [append]);

@@ -2,8 +2,9 @@ import * as yup from 'yup';
 
 const schema = yup.object().shape({
   invoiceNumber: yup.number().required(),
-  createdAt: yup.date().required(),
-  paymentDue: yup.date().required(),
+  invoiceDate: yup.date().required(),
+  poNumber: yup.string(),
+  poDate: yup.date(),
   description: yup.string().required(),
   taxApplicable: yup.boolean().default(false),
   status: yup.string().oneOf(['due', 'paid', 'draft']).default('due'),
@@ -50,6 +51,10 @@ const schema = yup.object().shape({
       price: yup.number().required().min(1),
       total: yup.number().required(),
       taxRate: yup.number().when('taxApplicable', {
+        is: true,
+        then: yup.number().required(),
+      }),
+      totalAfterTax: yup.number().when('taxApplicable', {
         is: true,
         then: yup.number().required(),
       }),
