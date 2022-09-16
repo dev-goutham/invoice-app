@@ -14,7 +14,7 @@ const InvoiceItem: React.FC<Props> = ({
   invoice: {
     id,
     invoiceNumber,
-    createdAt,
+    invoiceDate,
     status,
     total,
     clientDetails: { name },
@@ -28,7 +28,7 @@ const InvoiceItem: React.FC<Props> = ({
           {invoiceNumber}
         </div>
         <div className='date'>
-          {new Date(createdAt).toDateString().slice(3)}
+          {new Date(invoiceDate).toDateString().slice(3)}
         </div>
         <div className='name'>{name}</div>
         <div className='total'>{formatCurrency(total)}</div>

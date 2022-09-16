@@ -33,8 +33,8 @@ const EditInvoiceModal: React.FC<Props> = ({ isOpen, close, invoice }) => {
         <CreateInvoiceForm
           initialValues={{
             ...invoice,
-            createdAt: new Date(invoice.createdAt),
-            paymentDue: new Date(invoice.paymentDue),
+            invoiceDate: new Date(invoice.invoiceDate),
+            poDate: invoice.poDate && new Date(invoice.poDate),
           }}
           mode='update'
           onSubmit={handleSubmit}
